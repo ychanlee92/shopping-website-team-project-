@@ -28,19 +28,20 @@ public class FancyMain {
 		int selectNum = 0;
 		boolean exitFlag = false;
 		UserManager um = new UserManager();
+		String id = null;
 		try {
 			while (!exitFlag) {
 				// 실행시 처음 보여질 화면
 				MenuViewer.mainMenu();
-				String login = checkNum = input.nextLine();
+				checkNum = input.nextLine();
 				// 패턴검색
 				if (checkNum.matches(regExp)) {
 					selectNum = Integer.parseInt(checkNum);
 					if (selectNum > 0 && selectNum <= 3) {
 						switch (selectNum) {
 						case START_CHOICE.SIGNIN: // 로그인 (관리자 메뉴 or 고객메뉴)
-							um.login();
-							if (login == null) {
+							id = um.login();
+							if (id == null) {
 								return;
 							}
 							break;
