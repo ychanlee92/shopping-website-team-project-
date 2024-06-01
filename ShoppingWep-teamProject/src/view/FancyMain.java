@@ -193,7 +193,7 @@ public class FancyMain {
 					}else {
 						System.out.println("1-2까지 입력가능합니다.다시 입력해주세요!");
 					}
-				}else {
+				}else {						
 					System.out.println("잘못입력하셨습니다.");
 				}
 			}//end of while
