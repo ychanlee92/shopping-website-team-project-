@@ -17,7 +17,7 @@ public class DBUtil {
 	// 데이터베이스 연결
 	public static Connection makeConnection() throws FileNotFoundException, IOException {
 		// 오라클 데이터베이스 정보(주소, 유저, 패스워드)
-		String filePath = "D:/doitjava/githubjavflix/javflixwithdatebase/db.properties";
+		String filePath = "D:/shopping website team project/ShoppingWep-teamProject/db.properties";
 		Properties properties = new Properties();
 		properties.load(new FileReader(filePath));
 

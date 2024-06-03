@@ -44,8 +44,10 @@ public class FancyMain {
 							if (id == null) {
 								return;
 							}
+							customerMenu(id);
 							break;
 						case START_CHOICE.SIGNUP: // 회원가입
+							um.signup();
 							break;
 						case START_CHOICE.EXIT: // 프로그램 종료
 							exitFlag = true;
@@ -82,6 +84,7 @@ public class FancyMain {
 					if (selectNum > 0 && selectNum <= 4) {
 						switch (selectNum) {
 						case ADMIN_MAIN_CHOICE.USER_MAN: // 회원 관리(조회,수정,삭제)
+							userManagement();
 							break;
 						case ADMIN_MAIN_CHOICE.PRODUCT_MAN: // 상품관리(조회,추가,수정,삭제)
 							break;
@@ -110,7 +113,7 @@ public class FancyMain {
 		String checkNum = null;
 		int selectNum = 0;
 		boolean flag = false;
-
+		UserManager um = new UserManager();
 		try {
 			while (!flag) {
 				// 관리자 회원관리 UI
@@ -121,10 +124,13 @@ public class FancyMain {
 					if (selectNum > 0 && selectNum <= 4) {
 						switch (selectNum) {
 						case USER_MAN_CHOICE.LIST: // 모든 회원 조회
+							um.printTotalUser();
 							break;
 						case USER_MAN_CHOICE.UPDATE: // 특정 회원 정보 수정
+							um.updateUserAdmin();
 							break;
 						case USER_MAN_CHOICE.DELETE: // 특정 회원 강제 삭제(탈퇴)
+							um.deleteUserAdmin();
 							break;
 						case USER_MAN_CHOICE.BACK: // 뒤로가기
 							flag = true;
@@ -220,11 +226,12 @@ public class FancyMain {
 	}// calculateManagementTable
 
 	// 고객메뉴
-	public static void customerMenu() {
+	public static void customerMenu(String id) {
 		String regExp = "^[0-9]+$";
 		String checkNum = null;
 		int selectNum = 0;
 		boolean flag = false;
+		UserManager um = new UserManager();
 		try {
 			while (!flag) {
 				// 고객 로그인 시 보여지는 화면 UI
@@ -236,6 +243,7 @@ public class FancyMain {
 					if (selectNum > 0 && selectNum <= 5) {
 						switch (selectNum) {
 						case CUSTOMER_MAIN_CHOICE.MYPAGE: // 마이페이지(회원정보 보기,수정,탈퇴,결제내역)
+							customerInfo(id);
 							break;
 						case CUSTOMER_MAIN_CHOICE.PRODUCT: // 상품보기(선택정렬,검색,장바구니에 담기)
 							break;
@@ -261,11 +269,12 @@ public class FancyMain {
 	}// end of customerMenu
 
 	// 회원 마이페이지
-	public static void customerInfo() {
+	public static void customerInfo(String id) {
 		String regExp = "^[0-9]+$";
 		String checkNum = null;
 		int selectNum = 0;
 		boolean flag = false;
+		UserManager um = new UserManager();
 
 		try {
 			while (!flag) {
@@ -277,12 +286,16 @@ public class FancyMain {
 					if (selectNum > 0 && selectNum <= 5) {
 						switch (selectNum) {
 						case MYPAGE_CHOICE.SHOWINFO: // 내정보 조회
+							um.printUser(id);
 							break;
 						case MYPAGE_CHOICE.UPDATE: // 내 정보 수정(PW,PHONE,ADDRESS)
+							um.updateUser(id);
 							break;
 						case MYPAGE_CHOICE.DELETEACCOUNT: // 회원 탈퇴
-							break;
+							um.deleteUser(id);
+							return;
 						case MYPAGE_CHOICE.PAYMENT_LIST: // 결제내역 조회
+							// 장바구니 영역
 							break;
 						case MYPAGE_CHOICE.BACK: // 뒤로가기
 							flag = true;
