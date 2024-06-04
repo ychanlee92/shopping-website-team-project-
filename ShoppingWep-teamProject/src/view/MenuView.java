@@ -112,5 +112,4 @@ public class MenuView {
 		System.out.println("╚═════════════════════════════════════════════════════════════════╝");
 		System.out.print("**번호 선택: ");
 	}
-
 }
