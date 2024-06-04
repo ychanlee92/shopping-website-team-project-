@@ -56,6 +56,9 @@ public class UserDAO {
 			String message = cstmt.getString(7);
 			System.out.println(message);
 			System.out.println("신규회원 이벤트 웰컴 쿠폰이 발급되었습니다.\n쿠폰함에서 확인해보세요! ");
+			cstmt = con.prepareCall("{CALL updatecoupon1(?)}");
+			cstmt.setString(1, user.getUserId());
+			cstmt.executeUpdate();
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
