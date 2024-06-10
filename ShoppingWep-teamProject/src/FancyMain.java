@@ -1,5 +1,7 @@
 import java.util.Scanner;
 
+import controller.CartManager;
+import controller.ProductManager;
 import controller.UserManager;
 import view.ADMIN_MAIN_CHOICE;
 import view.CALCULATE_MAN_CHOICE;
@@ -236,6 +238,7 @@ public class FancyMain {
 		int selectNum = 0;
 		boolean flag = false;
 		UserManager um = new UserManager();
+		
 		try {
 			while (!flag) {
 				// 고객 로그인 시 보여지는 화면 UI
@@ -250,8 +253,10 @@ public class FancyMain {
 							customerInfo(id);
 							break;
 						case CUSTOMER_MAIN_CHOICE.PRODUCT: // 상품보기(선택정렬,검색,장바구니에 담기)
+							customer_ProductMenu(id);
 							break;
 						case CUSTOMER_MAIN_CHOICE.CART: // 장바구니(조회,취소)
+							customer_CartMenu(id);
 							break;
 						case CUSTOMER_MAIN_CHOICE.PAYMENT: // 결제하기(쿠폰사용여부?,누적금액 20만 배수마다 쿠폰 증정)
 							break;
@@ -318,15 +323,18 @@ public class FancyMain {
 	}// end of customerInfoTable
 
 	// 회원 상품보기 메뉴
-	public static void customer_ProductMenu() {
+	public static void customer_ProductMenu(String id) {
 		String regExp = "^[0-9]+$";
 		String checkNum = null;
 		int selectNum = 0;
 		boolean flag = false;
+		ProductManager pm = new ProductManager();
+		CartManager cm = new CartManager();
 
 		try {
 			while (!flag) {
 				// 상품보기 선택시 보여지는 화면 UI
+				MenuView.customer_ProductMenuViewer();
 				checkNum = input.nextLine();
 				// 패턴검색
 				if (checkNum.matches(regExp)) {
@@ -334,10 +342,13 @@ public class FancyMain {
 					if (selectNum > 0 && selectNum <= 4) {
 						switch (selectNum) {
 						case PRODUCT_CHOICE.LIST: // 상품보기(정렬)
+							product_SortMenu();
 							break;
 						case PRODUCT_CHOICE.SEARCH: // 특정 상품검색(비슷한 내용보여주기)
+							pm.productSearch();
 							break;
-						case PRODUCT_CHOICE.ADDITEM: // 장바구니 담기
+						case PRODUCT_CHOICE.ADDITEM: // 쇼핑하기 담기
+							cm.putInCart(id);
 							break;
 						case PRODUCT_CHOICE.BACK: // 뒤로가기
 							flag = true;
@@ -356,21 +367,26 @@ public class FancyMain {
 	}// end of customerProductManagementTable
 
 	// 회원 장바구니 메뉴
-	public static void customer_CartMenu() {
+	public static void customer_CartMenu(String id) {
 		String regExp = "^[0-9]+$";
 		String checkNum = null;
 		int selectNum = 0;
 		boolean flag = false;
+		CartManager cm = new CartManager();
+		
 		try {
 			while (!flag) {
 				// 장바구니 선택시 보여지는 화면 UI
+				MenuView.customer_CartMenuViewer();
 				checkNum = input.nextLine();
 				// 패턴검색
 				if (checkNum.matches(regExp)) {
 					selectNum = Integer.parseInt(checkNum);
-					if (selectNum > 0 && selectNum <= 4) {
+					if (selectNum > 0 && selectNum <= 5) {
 						switch (selectNum) {
 						case CART_CHOICE.LIST: // 내 장바구니 조회
+							cm.myCartList(id);
+							//여기하고 있음
 							break;
 						case CART_CHOICE.DELETE_ITEM: // 장바구니 항목 지정삭제
 							break;
@@ -399,18 +415,23 @@ public class FancyMain {
 		String checkNum = null;
 		int selectNum = 0;
 		boolean flag = false;
+		ProductManager pm = new ProductManager();
 		try {
 			while (!flag) {
 				// 상품 정렬 선택시 보여지는 화면 UI
+				MenuView.product_SortMenuViewer();
 				checkNum = input.nextLine();
 				// 패턴검색
 				if (checkNum.matches(regExp)) {
+					
 					selectNum = Integer.parseInt(checkNum);
-					if (selectNum > 0 && selectNum <= 3) {
+					if (selectNum > 0 && selectNum <= 5) {
 						switch (selectNum) {
-						case PRODUCT_SORT_CHOICE.MAXPRICE: // 가격높은순
-							break;
-						case PRODUCT_SORT_CHOICE.MINPRICE: // 가격낮은순
+						case PRODUCT_SORT_CHOICE.MINPRICE: // 가격높은순
+						case PRODUCT_SORT_CHOICE.MAXPRICE: // 가격낮은순
+						case PRODUCT_SORT_CHOICE.CATEGORY: // 카테고리
+						case PRODUCT_SORT_CHOICE.BRAND: // 브랜드
+							pm.sortPdList(selectNum);
 							break;
 						case PRODUCT_SORT_CHOICE.BACK: // 뒤로가기
 							flag = true;

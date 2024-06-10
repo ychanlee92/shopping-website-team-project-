@@ -80,7 +80,7 @@ public class MenuView {
 	public static void customerInfoViewer(){
 		System.out.println("╔════════════════════════Welcome to KH FANCY══════════════════════╗");
 		System.out.println("║                                                                 ║");
-		System.out.println("║     1.내 정보    2.내 정보수정   3.탈퇴하기    4.결제내역     5.뒤로가기     ║");
+		System.out.println("║     1.내 정보    2.내 정보수정   3.탈퇴하기    4.결제내역     5.뒤로가기         ║");
 		System.out.println("║                                                                 ║");
 		System.out.println("╚═════════════════════════════════════════════════════════════════╝");
 		System.out.print("**번호 선택: ");
@@ -89,7 +89,7 @@ public class MenuView {
 	public static void customer_ProductMenuViewer() {
 		System.out.println("╔════════════════════════Welcome to KH FANCY══════════════════════╗");
 		System.out.println("║                                                                 ║");
-		System.out.println("║       1.상품보기       2.상품검색       3.장바구니담기       4.뒤로가기     ║");
+		System.out.println("║       1.상품보기       2.상품검색       3.장바구니담기       4.뒤로가기        ║");
 		System.out.println("║                                                                 ║");
 		System.out.println("╚═════════════════════════════════════════════════════════════════╝");
 		System.out.print("**번호 선택: ");
@@ -98,7 +98,7 @@ public class MenuView {
 	public static void customer_CartMenuViewer() {
 		System.out.println("╔════════════════════════Welcome to KH FANCY══════════════════════╗");
 		System.out.println("║                                                                 ║");
-		System.out.println("║   1.장바구니 보기    2.장바구니 항목삭제    3.장바구니 전체삭제    4.뒤로가기    ║");
+		System.out.println("║  1.장바구니 보기      2.장바구니 항목 삭제      3.장바구니 비우기      4.뒤로가기    ║");
 		System.out.println("║                                                                 ║");
 		System.out.println("╚═════════════════════════════════════════════════════════════════╝");
 		System.out.print("**번호 선택: ");
@@ -107,9 +107,28 @@ public class MenuView {
 	public static void product_SortMenuViewer() {
 		System.out.println("╔════════════════════════Welcome to KH FANCY══════════════════════╗");
 		System.out.println("║                                                                 ║");
-		System.out.println("║        1.가격높은순           2.가격 낮은순           3.뒤로가기         ║");
+		System.out.println("║  1.가격낮은순     2.가격높은순     3.카테고리별     4.브랜드별     5.뒤로가기      ║");
 		System.out.println("║                                                                 ║");
 		System.out.println("╚═════════════════════════════════════════════════════════════════╝");
 		System.out.print("**번호 선택: ");
+	}
+	
+	
+	public static void product_SearchMenuViewer() {
+		System.out.println("╔════════════════════════Welcome to KH FANCY══════════════════════╗");
+		System.out.println("║                                                                 ║");
+		System.out.println("║              ◈ 검색할 상품명의 키워드를 작성하세요(뒤로가기 : B)                 ║");
+		System.out.println("║                                                                 ║");
+		System.out.println("╚═════════════════════════════════════════════════════════════════╝");
+		System.out.print("**키워드 입력: ");
+	}
+	
+	public static void product_Choice() {
+		System.out.println("╔════════════════════════Welcome to KH FANCY══════════════════════╗");
+		System.out.println("║                                                                 ║");
+		System.out.println("║                ◈ 주문할 상품코드를 입력하세요(뒤로가기 : B)                   ║");
+		System.out.println("║                                                                 ║");
+		System.out.println("╚═════════════════════════════════════════════════════════════════╝");
+		System.out.print("**상품코드 입력: ");
 	}
 }

@@ -19,12 +19,13 @@ public class UserDAO {
 		boolean flag = false;
 		try {
 			con = DBUtil.makeConnection();
+			System.out.println("DB접속성공");
 			String sql = "select * from fancy_user where userid = ? and userpass = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, id);
 			pstmt.setString(2, pass);
 			rs = pstmt.executeQuery();
-			if (!rs.next()) {
+			if (rs.next()) {
 				flag = true;
 			}
 		} catch (IOException e) {
