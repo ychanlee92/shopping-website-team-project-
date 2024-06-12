@@ -156,9 +156,9 @@ public class UserDAO {
 			con = DBUtil.makeConnection();
 			cstmt = con.prepareCall("{CALL deleteUser(?,?)}");
 			cstmt.setString(1, id);
-			cstmt.registerOutParameter(4, Types.VARCHAR);
+			cstmt.registerOutParameter(2, Types.VARCHAR);
 			cstmt.executeUpdate();
-			String message = cstmt.getString(4);
+			String message = cstmt.getString(2);
 			System.out.println(message);
 		} catch (IOException e) {
 			e.printStackTrace();

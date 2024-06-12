@@ -13,6 +13,8 @@ public class UserManager {
 		String id = sc.nextLine();
 		System.out.print("비밀번호를 입력하세요 : ");
 		String pass = sc.nextLine();
+//		if(id.equals("admin"))
+//			adminDAO.login(id,pass);
 		boolean flag = ud.login(id, pass);
 		if (flag) {
 			System.out.println("로그인 성공!!");

@@ -284,10 +284,11 @@ public class FancyMain {
 		int selectNum = 0;
 		boolean flag = false;
 		UserManager um = new UserManager();
-
+		
 		try {
 			while (!flag) {
 				// 마이페이지 선택시 보여지는 화면 UI
+				MenuView.customerInfoViewer();
 				checkNum = input.nextLine();
 				// 패턴검색
 				if (checkNum.matches(regExp)) {
