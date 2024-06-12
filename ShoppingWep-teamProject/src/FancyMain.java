@@ -389,8 +389,10 @@ public class FancyMain {
 							//여기하고 있음
 							break;
 						case CART_CHOICE.DELETE_ITEM: // 장바구니 항목 지정삭제
+							cm.myCartDelete(id);
 							break;
 						case CART_CHOICE.DELETE_CART: // 장바구니 항목 전체삭제
+							cm.myCartClear(id);
 							break;
 						case CART_CHOICE.BACK: // 뒤로가기
 							flag = true;
