@@ -1,39 +1,39 @@
 package model;
 
 public class CouponVO {
-	private int couponNum = 0;
+	private int coupon_Num = 0;
 	private String userId = null;
-	private String welcomeC = null;
-	private String vipC = null;
-	private String nikeC = null;
+	private String coupon_w = null;
+	private String coupon_m = null;
+	private String coupon_d = null;
 
 	public CouponVO() {
 		super();
 	}
 
-	public CouponVO(String userId, String welcomeC, String vipC, String nikeC) {
+	public CouponVO(String userId, String coupon_w, String coupon_m, String coupon_d) {
 		super();
 		this.userId = userId;
-		this.welcomeC = welcomeC;
-		this.vipC = vipC;
-		this.nikeC = nikeC;
+		this.coupon_w = coupon_w;
+		this.coupon_m = coupon_m;
+		this.coupon_d = coupon_d;
 	}
 
-	public CouponVO(int couponNum, String userId, String welcomeC, String vipC, String nikeC) {
+	public CouponVO(int coupon_Num, String userId, String coupon_w, String coupon_m, String coupon_d) {
 		super();
-		this.couponNum = couponNum;
+		this.coupon_Num = coupon_Num;
 		this.userId = userId;
-		this.welcomeC = welcomeC;
-		this.vipC = vipC;
-		this.nikeC = nikeC;
+		this.coupon_w = coupon_w;
+		this.coupon_m = coupon_m;
+		this.coupon_d = coupon_d;
 	}
 
-	public int getCouponNum() {
-		return couponNum;
+	public int getCoupon_Num() {
+		return coupon_Num;
 	}
 
 	public void setCouponNum(int couponNum) {
-		this.couponNum = couponNum;
+		this.coupon_Num = couponNum;
 	}
 
 	public String getUserId() {
@@ -44,33 +44,33 @@ public class CouponVO {
 		this.userId = userId;
 	}
 
-	public String getWelcomeC() {
-		return welcomeC;
+	public String getCoupon_w() {
+		return coupon_w;
 	}
 
-	public void setWelcomeC(String welcomeC) {
-		this.welcomeC = welcomeC;
+	public void setCoupon_w(String coupon_w) {
+		this.coupon_w = coupon_w;
 	}
 
-	public String getVipC() {
-		return vipC;
+	public String getCoupon_m() {
+		return coupon_m;
 	}
 
-	public void setVipC(String vipC) {
-		this.vipC = vipC;
+	public void setCoupon_m(String coupon_m) {
+		this.coupon_m = coupon_m;
 	}
 
-	public String getNikeC() {
-		return nikeC;
+	public String getCoupon_d() {
+		return coupon_d;
 	}
 
-	public void setNikeC(String nikeC) {
-		this.nikeC = nikeC;
+	public void setCoupon_d(String coupon_d) {
+		this.coupon_d = coupon_d;
 	}
 
 	@Override
 	public String toString() {
-		return "[" + couponNum + "\t|" + userId + "\t|" + welcomeC + "\t|" + vipC + "\t|" + nikeC + "]";
+		return "[" + coupon_Num + "\t|" + userId + "\t|" + coupon_w + "\t|" + coupon_m + "\t|" + coupon_d + "]";
 	}
 
 }

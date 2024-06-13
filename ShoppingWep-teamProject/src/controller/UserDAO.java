@@ -11,7 +11,7 @@ import java.sql.Types;
 import model.UserVO;
 
 public class UserDAO {
-
+	// 사용자 로그인 함수
 	public boolean login(String id, String pass) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -19,7 +19,9 @@ public class UserDAO {
 		boolean flag = false;
 		try {
 			con = DBUtil.makeConnection();
-			System.out.println("DB접속성공");
+//			System.out.println("DB접속성공");
+
+			// 아이디와 비밀번호가 일치하는 결과값이 있는지 확인
 			String sql = "select * from fancy_user where userid = ? and userpass = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, id);
@@ -38,6 +40,7 @@ public class UserDAO {
 		return flag;
 	}
 
+	// 회원가입 함수
 	public void signUp(UserVO user) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -45,6 +48,7 @@ public class UserDAO {
 		CallableStatement cstmt = null;
 		try {
 			con = DBUtil.makeConnection();
+			// 회원가입시 저장한 유저객체를 데이터베이스에 입력
 			cstmt = con.prepareCall("{CALL insertuser(?,?,?,?,?,?,?)}");
 			cstmt.setString(1, user.getUserId());
 			cstmt.setString(2, user.getUserPass());
@@ -56,8 +60,9 @@ public class UserDAO {
 			cstmt.executeUpdate();
 			String message = cstmt.getString(7);
 			System.out.println(message);
+			// 회원가입과 동시에 회원가입 축하 쿠폰 입력
 			System.out.println("신규회원 이벤트 웰컴 쿠폰이 발급되었습니다.\n쿠폰함에서 확인해보세요! ");
-			cstmt = con.prepareCall("{CALL updatecoupon1(?)}");
+			cstmt = con.prepareCall("{CALL insertcoupon_w(?)}");
 			cstmt.setString(1, user.getUserId());
 			cstmt.executeUpdate();
 		} catch (IOException e) {
@@ -69,6 +74,7 @@ public class UserDAO {
 		}
 	}
 
+	// 로그인시 아이디 중복 확인 함수
 	public boolean idCheck(String id) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -76,6 +82,7 @@ public class UserDAO {
 		boolean flag = false;
 		try {
 			con = DBUtil.makeConnection();
+			// flag로 결과값이 있는지 확인
 			String sql = "select * from fancy_user where userid = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, id);
@@ -93,25 +100,27 @@ public class UserDAO {
 		return flag;
 	}
 
+	// 사용자가 조회하는 정보
 	public void printUser(String id) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
 			con = DBUtil.makeConnection();
-			String sql = "select * from fancy_user where userid = ?";
+			String sql = "select u.userid, userpass, username, phone, address, accAmount, coupon_w, coupon_m, coupon_d from fancy_user u inner join coupon c on u.userid=c.userid where userid = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, id);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
-				String userId = rs.getString("userId");
+				String userId = rs.getString("u.userId");
 				String pass = rs.getString("userPass");
 				String name = rs.getString("userName");
 				String phone = rs.getString("phone");
 				String address = rs.getString("address");
 				int accAmount = rs.getInt("accAmount");
 				UserVO user = new UserVO(userId, pass, name, phone, address, accAmount);
-				System.out.println(user.toString());
+				CouponVO coupon = new CouponVO()
+				System.out.println(user.toStringUser());
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
