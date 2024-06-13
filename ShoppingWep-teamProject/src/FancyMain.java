@@ -284,10 +284,11 @@ public class FancyMain {
 		int selectNum = 0;
 		boolean flag = false;
 		UserManager um = new UserManager();
-
+		
 		try {
 			while (!flag) {
 				// 마이페이지 선택시 보여지는 화면 UI
+				MenuView.customerInfoViewer();
 				checkNum = input.nextLine();
 				// 패턴검색
 				if (checkNum.matches(regExp)) {
@@ -389,8 +390,10 @@ public class FancyMain {
 							//여기하고 있음
 							break;
 						case CART_CHOICE.DELETE_ITEM: // 장바구니 항목 지정삭제
+							cm.myCartDelete(id);
 							break;
 						case CART_CHOICE.DELETE_CART: // 장바구니 항목 전체삭제
+							cm.myCartClear(id);
 							break;
 						case CART_CHOICE.BACK: // 뒤로가기
 							flag = true;

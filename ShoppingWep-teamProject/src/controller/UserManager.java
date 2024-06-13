@@ -13,6 +13,8 @@ public class UserManager {
 		String id = sc.nextLine();
 		System.out.print("비밀번호를 입력하세요 : ");
 		String pass = sc.nextLine();
+//		if(id.equals("admin"))
+//			adminDAO.login(id,pass);
 		boolean flag = ud.login(id, pass);
 		if (flag) {
 			System.out.println("로그인 성공!!");
@@ -26,6 +28,7 @@ public class UserManager {
 
 	public void signup() {
 		String id = null;
+		String regExp = "^[0-9]+$";
 		for (;;) {
 			System.out.print("ID를 입력하세요: ");
 			id = sc.nextLine();
@@ -42,10 +45,21 @@ public class UserManager {
 		String name = sc.nextLine();
 		System.out.print("전화번호를 입력하세요: ");
 		String phone = sc.nextLine();
-		System.out.print("주소를 입력하세요: ");
-		String address = sc.nextLine();
-		UserVO user = new UserVO(id, pass, name, phone, address, 0);
-		ud.signUp(user);
+		for (;;) {
+			if (phone.matches(regExp)) {
+				if (phone.length() == 11) {
+					System.out.print("주소를 입력하세요: ");
+					String address = sc.nextLine();
+					UserVO user = new UserVO(id, pass, name, phone, address, 0);
+					ud.signUp(user);
+					break;
+				} else {
+					System.out.println("전화번호 11자리가 입력되지 않았습니다.");
+				}
+			} else {
+				System.out.println("숫자만 입력하세요.");
+			}
+		}
 	}
 
 	public void printUser(String id) {

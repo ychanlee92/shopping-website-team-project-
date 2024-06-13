@@ -43,7 +43,7 @@ public class CartManager {
 		System.out.print("주문 수량을 입력하세요 : ");
 		quantity = Integer.parseInt(input.nextLine());
 		salesAmount = quantity * pvo.getPrice();
-		System.out.print("☞ 선택한 상품을 장부구니에 담겠습니까? (Y/N) :");
+		System.out.print("☞ 선택한 상품을 장바구니에 담겠습니까? (Y/N) :");
 		String isSave = input.nextLine();
 		if(isSave.toUpperCase().equals("Y")) {
 			cvo.setPdCode(pvo.getPdCode());
@@ -52,18 +52,18 @@ public class CartManager {
 			cvo.setSalesAmount(salesAmount);
 			cvo.setIsPayment(isPayment);
 			cdao.setCartRegister(cvo);
-			System.out.println(cvo.toString());
+			System.out.println("☞ 선택하신 상품을 장바구니에 담았습니다.");
+			System.out.println();
 		}else {
 			return;
 		}
 	}
 	
-	//userId별 cart목록 보기
+	//고객(userId)별 cart목록 보기
 	public void myCartList(String id) {
 		CartDAO cdao = new CartDAO();
 		
 		int cartCount = 0;
-		int totalPrice = 0;
 		cartCount = cdao.cartCount(id);
 		
 		if(cartCount == 0) {
@@ -72,8 +72,40 @@ public class CartManager {
 		}
 		System.out.println();
 		System.out.println(">>>> 고객님께서 선택하신 상품 목록입니다. <<<<");
-		totalPrice = cdao.choiceList(id);
-		//여기부터해야해
+		cdao.choiceList(id);
+	}
+	
+	//고객별 장바구니 선택 삭제
+	public void myCartDelete(String id) {
+		CartDAO cdao = new CartDAO();
+		int orderNum = 0;
+		
+		System.out.println();
+		System.out.println(">>>> 고객님께서 선택하신 상품 목록입니다. <<<<");
+		cdao.choiceList(id);
+		
+		System.out.print("☞ 삭제할 주문번호를 입력하세요. : ");
+		orderNum = Integer.parseInt(input.nextLine());
+		cdao.deleteList(id, orderNum);
+		System.out.println(orderNum+"번 상품이 삭제되었습니다.");
+		System.out.println();
+	}
+	
+	//고객별 장바구니 모두 비우기
+	public void myCartClear(String id) {
+		CartDAO cdao = new CartDAO();
+		System.out.println();
+		System.out.println(">>>> 고객님께서 선택하신 상품 목록입니다. <<<<");
+		cdao.choiceList(id);
+		System.out.print(">> 정말로 장바구니를 다 비우시겠습니까? (Y/N) : ");
+		String in = input.nextLine();
+		if(in.toUpperCase().equals("Y")) {
+			cdao.clearCart(id);
+			System.out.println(">>>> 고객님의 장바구니가 비워졌습니다. <<<<");
+			System.out.println();
+		}else {
+			return;
+		}
 		
 	}
 	

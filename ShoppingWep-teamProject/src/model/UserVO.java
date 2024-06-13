@@ -75,5 +75,4 @@ public class UserVO {
 		return "[" + userId + "\t|" + userPass + "\t|" + userName + "\t|" + phone + "\t|" + address + "\t|" + accAmount
 				+ "]";
 	}
-
 }

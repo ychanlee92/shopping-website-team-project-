@@ -143,7 +143,7 @@ public class ProductDAO {
 		
 	}
 
-
+	//상품코드 유무조회
 	public boolean searchPdCode(String pdCode) {
 		String sql = "select * from product where pdcode = ?";
 		Connection con = null;
@@ -172,7 +172,7 @@ public class ProductDAO {
 		return pdMatch;
 	}
 
-
+	//특정 상품 가져오기
 	public ProductVO choicePd(String pdCode) {
 		String sql = "select * from product where pdcode = ?";
 		Connection con = null;
