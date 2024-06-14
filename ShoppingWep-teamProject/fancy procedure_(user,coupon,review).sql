@@ -18,13 +18,13 @@ create or replace procedure deleteuser
 (vid in varchar2, msg out varchar2)
 is
 begin
-    delete from fancy_user where id = vid;
+    delete from fancy_user where userid = vid;
     msg := '계정이 삭제되었습니다.';
 end deleteuser;
 
-create or replace procedure updatecoupon1
+create or replace procedure insertcoupon_w
 (vid in varchar2)
 is
 begin
-    update fancy_coupon set welcomeC = '유' where userId = vid;
-end updatecoupon1;
+    insert into coupon values(coupon_seq.nextval, vid, 1, 0, 0);
+end insertcoupon_w;
