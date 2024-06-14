@@ -7,7 +7,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.util.ArrayList;
 
+import model.CouponVO;
 import model.UserVO;
 
 public class UserDAO {
@@ -105,6 +107,8 @@ public class UserDAO {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
+		ArrayList<UserVO> userList = null;
+		ArrayList<CouponVO> couponList = null;
 		try {
 			con = DBUtil.makeConnection();
 			String sql = "select u.userid, userpass, username, phone, address, accAmount, coupon_w, coupon_m, coupon_d from fancy_user u inner join coupon c on u.userid=c.userid where userid = ?";
@@ -118,9 +122,14 @@ public class UserDAO {
 				String phone = rs.getString("phone");
 				String address = rs.getString("address");
 				int accAmount = rs.getInt("accAmount");
+				int coupon_w = rs.getInt("coupon_w");
+				int coupon_m = rs.getInt("coupon_m");
+				int coupon_d = rs.getInt("coupon_d");
 				UserVO user = new UserVO(userId, pass, name, phone, address, accAmount);
-				CouponVO coupon = new CouponVO()
-				System.out.println(user.toStringUser());
+				CouponVO coupon = new CouponVO(userId, coupon_w, coupon_m, coupon_d);
+				userList.add(user);
+				couponList.add(coupon);
+				toStringUser(userList, couponList);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -128,6 +137,23 @@ public class UserDAO {
 			e.printStackTrace();
 		} finally {
 			DBUtil.closeResource(rs, pstmt, con);
+		}
+	}
+
+	public void toStringUser(ArrayList<UserVO> userList, ArrayList<CouponVO> couponList) {
+		for (int i = 0; i < userList.size(); i++) {
+			UserVO user = userList.get(i);
+			CouponVO coupon = couponList.get(i);
+			System.out.printf("%-10d %1s", user.getUserId(), "|");
+			System.out.printf("%-10d %1s", user.getUserPass(), "|");
+			System.out.printf("%-5d %1s", user.getUserName(), "|");
+			System.out.printf("%-11d %1s", user.getPhone(), "|");
+			System.out.printf("%-20d %1s", user.getAddress(), "|");
+			System.out.printf("%-10d %1s", user.getAccAmount(), "|");
+			System.out.print(coupon.getCoupon_w());
+			System.out.print(coupon.getCoupon_m());
+			System.out.print(coupon.getCoupon_d());
+			System.out.println("");
 		}
 	}
 
