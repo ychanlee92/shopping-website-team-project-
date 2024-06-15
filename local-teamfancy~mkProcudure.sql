@@ -38,7 +38,6 @@ begin
     select c.order_num, p.pdcode, p.pdname, p.brand, p.category, c.quantity, c.salesamount
     from product p inner join cart c on p.pdcode = c.pdcode where c.userid = v_userid order by c.order_num;
 end choicelist;
-
 --삭제관련 특정 user + pdcode 상품 리스트---------------------------------------------------------------
 create or replace NONEDITIONABLE procedure dlechoicelist(
         v_userid in cart.userid%type, v_orderno in cart.order_num%type , v_cursor out SYS_REFCURSOR )

@@ -132,7 +132,7 @@ public class CartDAO {
 		}
 	}
 
-
+	//장바구니 비우기
 	public void clearCart(String id) {
 		Connection con = null;
 		CallableStatement cstmt = null;

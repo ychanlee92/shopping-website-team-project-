@@ -1,5 +1,6 @@
 package model;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 public class CartVO {
@@ -9,14 +10,14 @@ public class CartVO {
 	private int quantity;
 	private int salesAmount;
 	private int isPayment;
-	private Date paymentDate;
+	private Timestamp paymentDate;
 
 	
 	public CartVO() {
 		super();
 	}
 	public CartVO(int orderNo, String pdCode, String userId, int quantity, int salesAmount, int isPayment,
-			Date paymentDate) {
+			Timestamp paymentDate) {
 		super();
 		this.orderNo = orderNo;
 		this.pdCode = pdCode;
@@ -65,7 +66,7 @@ public class CartVO {
 	public Date getPaymentDate() {
 		return paymentDate;
 	}
-	public void setPaymentDate(Date paymentDate) {
+	public void setPaymentDate(Timestamp paymentDate) {
 		this.paymentDate = paymentDate;
 	}
 	@Override

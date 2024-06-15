@@ -114,6 +114,15 @@ public class MenuView {
 	}
 	
 	
+	public static void admin_Product_MenuViewer() {
+		System.out.println("╔═══════════════════════════ADMIN MENU════════════════════════════╗");
+		System.out.println("║                                                                 ║");
+		System.out.println("║  1.가격낮은순(All)   2.가격높은순(All)   3.카테고리검색   4.브랜드검색   5.뒤로가기  ║");
+		System.out.println("║                                                                 ║");
+		System.out.println("╚═════════════════════════════════════════════════════════════════╝");
+		System.out.print("**번호 선택: ");
+	}
+	
 	public static void product_SearchMenuViewer() {
 		System.out.println("╔════════════════════════Welcome to KH FANCY══════════════════════╗");
 		System.out.println("║                                                                 ║");
@@ -130,5 +139,27 @@ public class MenuView {
 		System.out.println("║                                                                 ║");
 		System.out.println("╚═════════════════════════════════════════════════════════════════╝");
 		System.out.print("**상품코드 입력: ");
+	}
+	
+	public static void product_Registration() {
+		System.out.println("╔═══════════════════════════ADMIN MENU════════════════════════════╗");
+		System.out.println("║                                                                 ║");
+		System.out.println("║                 ◈ 새로운 상품을 등록하세요.(뒤로가기 : B)                   ║");
+		System.out.println("║                                                                 ║");
+		System.out.println("╚═════════════════════════════════════════════════════════════════╝");
+	}
+	public static void product_Update() {
+		System.out.println("╔═══════════════════════════ADMIN MENU════════════════════════════╗");
+		System.out.println("║                                                                 ║");
+		System.out.println("║                     ◈ 수정할 상품의 코드를 입력하세요.                     ║");
+		System.out.println("║                                                                 ║");
+		System.out.println("╚═════════════════════════════════════════════════════════════════╝");
+	}
+	public static void product_Delete() {
+		System.out.println("╔═══════════════════════════ADMIN MENU════════════════════════════╗");
+		System.out.println("║                                                                 ║");
+		System.out.println("║                    ◈ 삭제할 상품의 코드를 입력하세요.                      ║");
+		System.out.println("║                                                                 ║");
+		System.out.println("╚═════════════════════════════════════════════════════════════════╝");
 	}
 }
