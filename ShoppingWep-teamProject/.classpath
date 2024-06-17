@@ -6,7 +6,7 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="D:/01 다운로드/database/ojdbc11.jar">
+	<classpathentry kind="lib" path="C:/oraclexe/dbhomeXE/jdbc/lib/ojdbc11.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>

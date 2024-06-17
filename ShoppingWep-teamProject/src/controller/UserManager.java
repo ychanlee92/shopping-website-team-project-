@@ -8,7 +8,7 @@ public class UserManager {
 	static Scanner sc = new Scanner(System.in);
 	static UserDAO ud = new UserDAO();
 
-	public static String login() {
+	public String login() {
 		System.out.print("아이디를 입력하세요 : ");
 		String id = sc.nextLine();
 		System.out.print("비밀번호를 입력하세요 : ");
@@ -43,9 +43,9 @@ public class UserManager {
 		String pass = sc.nextLine();
 		System.out.print("성함을 입력하세요: ");
 		String name = sc.nextLine();
-		System.out.print("전화번호를 입력하세요: ");
-		String phone = sc.nextLine();
 		for (;;) {
+			System.out.print("전화번호를 입력하세요: ");
+			String phone = sc.nextLine();
 			if (phone.matches(regExp)) {
 				if (phone.length() == 11) {
 					System.out.print("주소를 입력하세요: ");

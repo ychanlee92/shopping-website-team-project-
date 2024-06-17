@@ -1,55 +1,62 @@
 package model;
 
+import java.sql.Timestamp;
+
 public class CalculateVO {
-	private int no;
-	private String quantity;
-	private int sales_amount;
-	private String payment_date;
-	
-	
-	public CalculateVO() {
-		super();
+	private int calculate_num;
+	private String pdcode;
+	private int quantity;
+	private int salesAmount;
+	private String paymentDate;
+
+	public String getPdcode() {
+		return pdcode;
 	}
 
-	public CalculateVO(int no, String quantity, int sales_amount, String payment_date) {
-		super();
-		this.no = no;
-		this.quantity = quantity;
-		this.sales_amount = sales_amount;
-		this.payment_date = payment_date;
+	public void setPdcode(String pdcode) {
+		this.pdcode = pdcode;
 	}
 
-	public int getNo() {
-		return no;
+	public int getCalculate_num() {
+		return calculate_num;
 	}
 
-	public void setNo(int no) {
-		this.no = no;
+	public void setCalculate_num(int calculate_num) {
+		this.calculate_num = calculate_num;
 	}
 
-	public String getQuantity() {
+	public int getQuantity() {
 		return quantity;
 	}
 
-	public void setQuantity(String quantity) {
+	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
 
-	public int getSales_amount() {
-		return sales_amount;
+	public int getSalesAmount() {
+		return salesAmount;
 	}
 
-	public void setSales_amount(int sales_amount) {
-		this.sales_amount = sales_amount;
+	public void setSalesAmount(int salesAmount) {
+		this.salesAmount = salesAmount;
 	}
 
-	public String getPayment_date() {
-		return payment_date;
+	public String getPaymentDate() {
+		return paymentDate;
 	}
 
-	public void setPayment_date(String payment_date) {
-		this.payment_date = payment_date;
+	public void setPaymentDate(String paymentDate) {
+		this.paymentDate = paymentDate;
 	}
-	
-	
+
+	public void printDateList() {
+		System.out
+				.print(String.format("%11s %11d %15s", paymentDate, quantity, String.format("%,d", salesAmount) + "원"));
+	}
+
+	public void printProducteList() {
+//		
+		System.out.print(String.format("%11s %11d %15s", pdcode, quantity, String.format("%,d", salesAmount) + "원"));
+	}
+
 }

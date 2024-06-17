@@ -1,10 +1,14 @@
 import java.util.Scanner;
 
+import controller.AdminDAO;
+import controller.CalculateDAO;
+import controller.CalculateManager;
 import controller.CartManager;
-import controller.ProductDAO;
 import controller.ProductManager;
 import controller.UserManager;
 import view.ADMIN_MAIN_CHOICE;
+import view.ADMIN_MENU_CHOICE;
+import view.CALCULATE_DETAIL_CHOICE;
 import view.CALCULATE_MAN_CHOICE;
 import view.CART_CHOICE;
 import view.CUSTOMER_MAIN_CHOICE;
@@ -19,7 +23,7 @@ import view.USER_MAN_CHOICE;
 public class FancyMain {
 //	public static CustomerVO customer = new CustomerVO();
 	public static Scanner input = new Scanner(System.in);
-
+	
 	public static void main(String[] args) {
 		MenuView.khfancyViewer();
 		startMenu();
@@ -45,15 +49,16 @@ public class FancyMain {
 						switch (selectNum) {
 						case START_CHOICE.SIGNIN: // 로그인 (관리자 메뉴 or 고객메뉴)
 							id = um.login();
-							
 							if (id == null) {
-								return;
+								break;
 							}
-							//테스트용으로 만든 코드 수정필요.
-							if (id.equals("admin")) {
-								adminMenu();
+							//새로 추가됨
+							AdminDAO dao= AdminDAO.getInstance();
+							if (dao.adminCheck(id)) {
+								selectMenu(id);
 							}else {
-							customerMenu(id);}
+								customerMenu(id);
+							}
 							break;
 						case START_CHOICE.SIGNUP: // 회원가입
 							um.signup();
@@ -76,6 +81,44 @@ public class FancyMain {
 
 	}// end of firstMenu
 
+	//새로추가됨
+	//관리자 권한 체크 후 관리자 메뉴 or 고객메뉴 선택
+	public static void selectMenu(String id) {
+		String regExp = "^[0-9]+$";
+		String checkNum = null;
+		int selectNum = 0;
+		boolean exitFlag = false;
+		try {
+			while (!exitFlag) {
+				// 실행시 처음 보여질 화면
+				MenuView.enterAdminMenu();
+				checkNum = input.nextLine();
+				// 패턴검색
+				if (checkNum.matches(regExp)) {
+					selectNum = Integer.parseInt(checkNum);
+					if (selectNum > 0 && selectNum <= 3) {
+						switch (selectNum) {
+						case ADMIN_MENU_CHOICE.ADMIN_MENU: // 관리자메뉴 
+							adminMenu();
+							break;
+						case ADMIN_MENU_CHOICE.USER_MENU: // 고객메뉴
+							customerMenu(id);
+							break;
+						case ADMIN_MENU_CHOICE.EXIT: // 로그아웃
+							exitFlag = true;
+							break;
+						}
+					} else {
+						System.out.println("1~3까지 입력가능합니다 다시 입력해주세요!");
+					}
+				} else {
+					System.out.println("잘못입력하셨습니다.");
+				}
+			} // end of while
+		} catch (Exception e) {
+			e.printStackTrace();
+		} // end of try-catch
+	}
 	// 관리자 메뉴
 	public static void adminMenu() {
 		String regExp = "^[0-9]+$";
@@ -100,6 +143,7 @@ public class FancyMain {
 							productManagement();
 							break;
 						case ADMIN_MAIN_CHOICE.CALCULATE_MAN: // 매출관리(날짜별 조회,상품별 조회)
+							calculateManagement();
 							break;
 						case ADMIN_MAIN_CHOICE.EXIT: // 로그아웃
 							flag = true;
@@ -128,6 +172,7 @@ public class FancyMain {
 		try {
 			while (!flag) {
 				// 관리자 회원관리 UI
+				MenuView.userManagementViewer();
 				checkNum = input.nextLine();
 				// 패턴검색
 				if (checkNum.matches(regExp)) {
@@ -208,42 +253,130 @@ public class FancyMain {
 		} // end of try-catch
 	}// end of productManagementTable
 
-	// 관리자 매출(정산)관리 
-	public static void calculateManagement() {
-		String regExp = "^[0-9]+$";
-		String checkNum = null;
-		int selectNum = 0;
-		boolean flag = false;
-
-		try {
-			while (!flag) {
-				// 관리자 매출관리 UI
-				checkNum = input.nextLine();
-				// 패턴검색
-				if (checkNum.matches(regExp)) {
-					selectNum = Integer.parseInt(checkNum);
-					if (selectNum > 0 && selectNum <= 3) {
-						switch (selectNum) {
-						case CALCULATE_MAN_CHOICE.DATE_LIST: // 날짜별 매출 조회
-							break;
-						case CALCULATE_MAN_CHOICE.PRODUCT_LIST: // 상품별 매출 조회
-							break;
-						case CALCULATE_MAN_CHOICE.BACK: // 뒤로가기
-							flag = true;
-							break;
+	// 관리자 매출(정산)관리
+		public static void calculateManagement() {
+			String regExp = "^[0-9]+$";
+			String checkNum = null;
+			int selectNum = 0;
+			boolean flag = false;
+			boolean check = false;
+			try {
+				while (!flag) {
+					// 관리자 매출관리 UI
+					MenuView.calculateManagementViewer();
+					checkNum = input.nextLine();
+					// 패턴검색
+					if (checkNum.matches(regExp)) {
+						selectNum = Integer.parseInt(checkNum);
+						if (selectNum > 0 && selectNum <= 3) {
+							CalculateDAO dao = CalculateDAO.getInstance();
+							switch (selectNum) {
+							case CALCULATE_MAN_CHOICE.DATE_LIST: // 날짜별 매출 조회
+								check = dao.getCalculate_dateList();
+								calculate_dateMenu(check);
+								break;
+							case CALCULATE_MAN_CHOICE.PRODUCT_LIST: // 상품별 매출 조회
+								check = dao.getCalculate_productList();
+								calculate_productMenu(check);
+								break;
+							case CALCULATE_MAN_CHOICE.BACK: // 뒤로가기
+								flag = true;
+								break;
+							}
+						} else {
+							System.out.println("1-3까지 입력가능합니다.다시 입력해주세요!");
 						}
 					} else {
-						System.out.println("1-2까지 입력가능합니다.다시 입력해주세요!");
+						System.out.println("잘못입력하셨습니다.");
 					}
-				} else {
-					System.out.println("잘못입력하셨습니다.");
-				}
-			} // end of while
-		} catch (Exception e) {
-			e.printStackTrace();
-		} // end of try-catch
+				} // end of while
+			} catch (Exception e) {
+				e.printStackTrace();
+			} // end of try-catch
 
-	}// calculateManagementTable
+		}// calculateManagementTable
+
+		// 관리자 매출(정산) 날짜별
+		public static void calculate_dateMenu(boolean check) {
+			if(!check) {
+				return;
+			}
+			String regExp = "^[0-9]+$";
+			String checkNum = null;
+			int selectNum = 0;
+			boolean flag = false;
+			
+			try {
+				while (!flag) {
+					// 관리자 매출 날짜메뉴 UI
+					MenuView.calculate_detailMenuViewer();
+					checkNum = input.nextLine();
+					// 패턴검색
+					if (checkNum.matches(regExp)) {
+						selectNum = Integer.parseInt(checkNum);
+						if (selectNum > 0 && selectNum <= 2) {
+							switch (selectNum) {
+							case CALCULATE_DETAIL_CHOICE.SELECT_LIST: // 선택한 날짜 매출 조회
+								CalculateManager.getCalculate_selectDate();
+								break;
+							case CALCULATE_DETAIL_CHOICE.BACK: // 뒤로가기
+								flag = true;
+								break;
+							}
+						} else {
+							System.out.println("1-2까지 입력가능합니다.다시 입력해주세요!");
+						}
+					} else {
+						System.out.println("잘못입력하셨습니다.");
+					}
+				} // end of while
+			} catch (Exception e) {
+				e.printStackTrace();
+			} // end of try-catch
+
+		}// calculateManagementTable
+
+		// 관리자 매출(정산) 상품별
+		public static void calculate_productMenu(boolean check) {
+			if(!check) {
+				return;
+			}
+			String regExp = "^[0-9]+$";
+			String checkNum = null;
+			int selectNum = 0;
+			boolean flag = false;
+
+			try {
+				while (!flag) {
+					// 관리자 매출 상품메뉴 UI
+					MenuView.calculate_detailMenuViewer();
+					checkNum = input.nextLine();
+					// 패턴검색
+					if (checkNum.matches(regExp)) {
+						selectNum = Integer.parseInt(checkNum);
+						if (selectNum > 0 && selectNum <= 2) {
+							switch (selectNum) {
+							case CALCULATE_DETAIL_CHOICE.SELECT_LIST: // 선택한 상품 매출 조회
+								CalculateManager.getCalculate_selectProduct();
+								break;
+							case CALCULATE_DETAIL_CHOICE.BACK: // 뒤로가기
+								flag = true;
+								break;
+							}
+						} else {
+							System.out.println("1-2까지 입력가능합니다.다시 입력해주세요!");
+						}
+					} else {
+						System.out.println("잘못입력하셨습니다.");
+					}
+				} // end of while
+			} catch (Exception e) {
+				e.printStackTrace();
+			} // end of try-catch
+
+		}// calculateManagementTable
+	
+	
 
 	// 고객메뉴 - 부분완료
 	public static void customerMenu(String id) {

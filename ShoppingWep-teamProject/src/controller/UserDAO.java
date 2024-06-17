@@ -110,13 +110,15 @@ public class UserDAO {
 		ArrayList<UserVO> userList = null;
 		ArrayList<CouponVO> couponList = null;
 		try {
+			userList = new ArrayList<>();
+			couponList = new ArrayList<>();
 			con = DBUtil.makeConnection();
-			String sql = "select u.userid, userpass, username, phone, address, accAmount, coupon_w, coupon_m, coupon_d from fancy_user u inner join coupon c on u.userid=c.userid where userid = ?";
+			String sql = "select u.userid, u.userpass, u.username, u.phone, u.address, u.accAmount, c.coupon_w, c.coupon_m, c.coupon_d from fancy_user u inner join coupon c on u.userid=c.userid where u.userid = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, id);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
-				String userId = rs.getString("u.userId");
+				String userId = rs.getString("userId");
 				String pass = rs.getString("userPass");
 				String name = rs.getString("userName");
 				String phone = rs.getString("phone");
@@ -144,11 +146,11 @@ public class UserDAO {
 		for (int i = 0; i < userList.size(); i++) {
 			UserVO user = userList.get(i);
 			CouponVO coupon = couponList.get(i);
-			System.out.printf("%-10d %1s", user.getUserId(), "|");
-			System.out.printf("%-10d %1s", user.getUserPass(), "|");
-			System.out.printf("%-5d %1s", user.getUserName(), "|");
-			System.out.printf("%-11d %1s", user.getPhone(), "|");
-			System.out.printf("%-20d %1s", user.getAddress(), "|");
+			System.out.printf("%-10s %1s", user.getUserId(), "|");
+			System.out.printf("%-10s %1s", user.getUserPass(), "|");
+			System.out.printf("%-5s %1s", user.getUserName(), "|");
+			System.out.printf("%-11s %1s", user.getPhone(), "|");
+			System.out.printf("%-20s %1s", user.getAddress(), "|");
 			System.out.printf("%-10d %1s", user.getAccAmount(), "|");
 			System.out.print(coupon.getCoupon_w());
 			System.out.print(coupon.getCoupon_m());
@@ -214,7 +216,7 @@ public class UserDAO {
 			String sql = "select * from fancy_user";
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
-			while (!rs.next()) {
+			while (rs.next()) {
 				String userId = rs.getString("userId");
 				String pass = rs.getString("userPass");
 				String name = rs.getString("userName");
@@ -222,8 +224,8 @@ public class UserDAO {
 				String address = rs.getString("address");
 				int accAmount = rs.getInt("accAmount");
 				user = new UserVO(userId, pass, name, phone, address, accAmount);
+				System.out.println(user.toString());
 			}
-			System.out.println(user.toString());
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {

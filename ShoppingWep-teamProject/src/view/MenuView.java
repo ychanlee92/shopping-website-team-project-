@@ -162,4 +162,21 @@ public class MenuView {
 		System.out.println("║                                                                 ║");
 		System.out.println("╚═════════════════════════════════════════════════════════════════╝");
 	}
+	public static void calculate_detailMenuViewer() {
+		System.out.println("╔═══════════════════════════ADMIN MENU════════════════════════════╗");
+		System.out.println("║                                                                 ║");
+		System.out.println("║                1.세부항목 보기               2.뒤로가기               ║");
+		System.out.println("║                                                                 ║");
+		System.out.println("╚═════════════════════════════════════════════════════════════════╝");
+		System.out.print("**번호 선택: ");
+	}
+	
+	public static void enterAdminMenu() {
+		System.out.println("╔═════════════════════════════════════════════════════════════════╗");
+		System.out.println("║                                                                 ║");
+		System.out.println("║        1.관리자 메뉴          2.고객 메뉴            3.로그아웃         ║");
+		System.out.println("║                                                                 ║");
+		System.out.println("╚═════════════════════════════════════════════════════════════════╝");
+		System.out.print("**번호 선택: ");
+	}
 }
