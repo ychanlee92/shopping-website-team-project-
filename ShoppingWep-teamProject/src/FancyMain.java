@@ -273,6 +273,7 @@ public class FancyMain {
 							customer_CartMenu(id);
 							break;
 						case CUSTOMER_MAIN_CHOICE.PAYMENT: // 결제하기(쿠폰사용여부?,누적금액 20만 배수마다 쿠폰 증정)
+							System.out.println("결재하기 처리 필요");
 							break;
 						case CUSTOMER_MAIN_CHOICE.EXIT: // 로그아웃
 							flag = true;
