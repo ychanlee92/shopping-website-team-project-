@@ -20,7 +20,7 @@ public class MenuView {
 		System.out.println("║  ╚═╝        ╚═╝  ╚═╝     ╚═══╝       ╚═════╝       ╚═╝          ║");
 		System.out.println("║                                                                 ║");
 		System.out.println("╠═════════════════════════════════════════════════════════════════╣");
-		
+
 	}
 
 	public static void startMenuViewer() {
@@ -31,7 +31,7 @@ public class MenuView {
 		System.out.println("╚═════════════════════════════════════════════════════════════════╝");
 		System.out.print("**번호 선택: ");
 	}
-	
+
 	public static void adminMenuViewer() {
 		System.out.println("╔═══════════════════════════ADMIN MENU════════════════════════════╗");
 		System.out.println("║                                                                 ║");
@@ -40,7 +40,7 @@ public class MenuView {
 		System.out.println("╚═════════════════════════════════════════════════════════════════╝");
 		System.out.print("**번호 선택: ");
 	}
-	
+
 	public static void userManagementViewer() {
 		System.out.println("╔═══════════════════════════ADMIN MENU════════════════════════════╗");
 		System.out.println("║                                                                 ║");
@@ -49,7 +49,7 @@ public class MenuView {
 		System.out.println("╚═════════════════════════════════════════════════════════════════╝");
 		System.out.print("**번호 선택: ");
 	}
-	
+
 	public static void productManagementViewer() {
 		System.out.println("╔═══════════════════════════ADMIN MENU════════════════════════════╗");
 		System.out.println("║                                                                 ║");
@@ -58,7 +58,7 @@ public class MenuView {
 		System.out.println("╚═════════════════════════════════════════════════════════════════╝");
 		System.out.print("**번호 선택: ");
 	}
-	
+
 	public static void calculateManagementViewer() {
 		System.out.println("╔═══════════════════════════ADMIN MENU════════════════════════════╗");
 		System.out.println("║                                                                 ║");
@@ -67,7 +67,7 @@ public class MenuView {
 		System.out.println("╚═════════════════════════════════════════════════════════════════╝");
 		System.out.print("**번호 선택: ");
 	}
-	
+
 	public static void customerMenuViewer() {
 		System.out.println("╔════════════════════════Welcome to KH FANCY══════════════════════╗");
 		System.out.println("║                                                                 ║");
@@ -76,8 +76,8 @@ public class MenuView {
 		System.out.println("╚═════════════════════════════════════════════════════════════════╝");
 		System.out.print("**번호 선택: ");
 	}
-	
-	public static void customerInfoViewer(){
+
+	public static void customerInfoViewer() {
 		System.out.println("╔════════════════════════Welcome to KH FANCY══════════════════════╗");
 		System.out.println("║                                                                 ║");
 		System.out.println("║     1.내 정보    2.내 정보수정   3.탈퇴하기    4.결제내역     5.뒤로가기         ║");
@@ -85,7 +85,7 @@ public class MenuView {
 		System.out.println("╚═════════════════════════════════════════════════════════════════╝");
 		System.out.print("**번호 선택: ");
 	}
-	
+
 	public static void customer_ProductMenuViewer() {
 		System.out.println("╔════════════════════════Welcome to KH FANCY══════════════════════╗");
 		System.out.println("║                                                                 ║");
@@ -94,7 +94,7 @@ public class MenuView {
 		System.out.println("╚═════════════════════════════════════════════════════════════════╝");
 		System.out.print("**번호 선택: ");
 	}
-	
+
 	public static void customer_CartMenuViewer() {
 		System.out.println("╔════════════════════════Welcome to KH FANCY══════════════════════╗");
 		System.out.println("║                                                                 ║");
@@ -103,7 +103,7 @@ public class MenuView {
 		System.out.println("╚═════════════════════════════════════════════════════════════════╝");
 		System.out.print("**번호 선택: ");
 	}
-	
+
 	public static void product_SortMenuViewer() {
 		System.out.println("╔════════════════════════Welcome to KH FANCY══════════════════════╗");
 		System.out.println("║                                                                 ║");
@@ -112,6 +112,7 @@ public class MenuView {
 		System.out.println("╚═════════════════════════════════════════════════════════════════╝");
 		System.out.print("**번호 선택: ");
 	}
+<<<<<<< HEAD
 	
 	
 	public static void admin_Product_MenuViewer() {
@@ -123,6 +124,9 @@ public class MenuView {
 		System.out.print("**번호 선택: ");
 	}
 	
+=======
+
+>>>>>>> origin/sub-jaekyeong
 	public static void product_SearchMenuViewer() {
 		System.out.println("╔════════════════════════Welcome to KH FANCY══════════════════════╗");
 		System.out.println("║                                                                 ║");
@@ -131,7 +135,7 @@ public class MenuView {
 		System.out.println("╚═════════════════════════════════════════════════════════════════╝");
 		System.out.print("**키워드 입력: ");
 	}
-	
+
 	public static void product_Choice() {
 		System.out.println("╔════════════════════════Welcome to KH FANCY══════════════════════╗");
 		System.out.println("║                                                                 ║");
@@ -141,6 +145,7 @@ public class MenuView {
 		System.out.print("**상품코드 입력: ");
 	}
 	
+<<<<<<< HEAD
 	public static void product_Registration() {
 		System.out.println("╔═══════════════════════════ADMIN MENU════════════════════════════╗");
 		System.out.println("║                                                                 ║");
@@ -163,3 +168,14 @@ public class MenuView {
 		System.out.println("╚═════════════════════════════════════════════════════════════════╝");
 	}
 }
+=======
+	public static void calculate_detailMenuViewer() {
+		System.out.println("╔═══════════════════════════ADMIN MENU════════════════════════════╗");
+		System.out.println("║                                                                 ║");
+		System.out.println("║                1.세부항목 보기               2.뒤로가기               ║");
+		System.out.println("║                                                                 ║");
+		System.out.println("╚═════════════════════════════════════════════════════════════════╝");
+		System.out.print("**번호 선택: ");
+	}
+}
+>>>>>>> origin/sub-jaekyeong
