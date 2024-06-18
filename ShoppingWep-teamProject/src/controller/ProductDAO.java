@@ -324,4 +324,40 @@ public class ProductDAO {
 	}
 
 	
+	//카테고리 또는 브랜드가 있는지 유무 확인
+	public boolean adminPdSearcyIs(int selectNum, String cateNBrand) {
+		String sql1 = "select * from product where category = ?";
+		String sql2 = "select * from product where brand = ?";
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		boolean Match = false;
+
+		try {
+			con = DBUtil.makeConnection();
+			if(selectNum == 3) {
+				pstmt = con.prepareStatement(sql1);
+			} else {
+				pstmt = con.prepareStatement(sql2);
+			}
+			pstmt.setString(1, cateNBrand);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				Match = true; // 상품매치됨
+			}
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.closeResource(rs, pstmt, con);
+		}
+		return Match;
+	}
+
+	
 }
