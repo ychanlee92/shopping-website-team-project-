@@ -110,3 +110,43 @@ create or replace NONEDITIONABLE procedure productDelete(vPdcode in product.PDCO
         delete from product where pdcode = vPdcode;
 end productDelete;
 /
+
+--상품조회 시 리뷰보여주기---
+create or replace NONEDITIONABLE procedure pdReview(
+        vSearchName in product.pdname%type, v_cursor out SYS_REFCURSOR )
+is
+begin
+    open v_cursor for
+        WITH ranked_comments AS ( SELECT p.pdcode,p.pdname,p.brand,p.category,p.price,r.comments,
+        ROW_NUMBER() OVER (PARTITION BY p.pdcode ORDER BY r.comments) AS rn 
+        FROM product p LEFT JOIN review r ON p.pdcode = r.pdcode WHERE p.pdname LIKE '%'||vSearchName||'%')
+            SELECT pdcode,pdname,brand,category,price,NVL(comments, ' ') AS comments
+            FROM ranked_comments WHERE rn = 1 ORDER BY pdcode ASC;
+end pdReview;
+/
+
+--procedure pdReview 테트스 코드-----
+DECLARE
+    v_cursor SYS_REFCURSOR;
+    v_pdcode product.pdcode%TYPE;
+    v_pdname product.pdname%TYPE;
+    v_brand product.brand%TYPE;
+    v_category product.category%TYPE;
+    v_price product.price%TYPE;
+    v_comments review.comments%TYPE;
+BEGIN
+    -- 프로시저 호출
+    pdReview('반팔티', v_cursor);
+
+    -- 커서에서 데이터를 추출하여 출력
+    LOOP
+        FETCH v_cursor INTO v_pdcode, v_pdname, v_brand, v_category, v_price, v_comments;
+        EXIT WHEN v_cursor%NOTFOUND;
+        DBMS_OUTPUT.PUT_LINE('PDCode: ' || v_pdcode || ', PDName: ' || v_pdname || ', Brand: ' || v_brand || ', Category: ' || v_category || ', Price: ' || v_price || ', Comments: ' || v_comments);
+    END LOOP;
+
+    -- 커서 닫기
+    CLOSE v_cursor;
+END;
+/
+-------------------------
