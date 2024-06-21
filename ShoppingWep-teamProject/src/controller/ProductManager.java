@@ -36,6 +36,7 @@ public class ProductManager {
 			if (searchChar.toUpperCase().equals("B")) {
 				flagExit = true;
 			}
+			
 			pdao.pdSearch(searchChar);
 
 		}
@@ -45,17 +46,34 @@ public class ProductManager {
 	public void adminSortPdList(int selectNum) {
 		ProductDAO pdao = new ProductDAO();
 		String cateNBrand = null;
+		boolean pdFlag = false;
 		if (selectNum == 1 || selectNum == 2) {
 			System.out.println("\t\t=== KH Fancy Admin 상품 검색 결과 ===");
 			pdao.pdSortList(selectNum);
 		} else if (selectNum == 3) {
 			System.out.print("☞ 검색할 카테고리를 입력하세요 : ");
-			cateNBrand = input.nextLine();
-			pdao.adminpdSearcy(selectNum, cateNBrand);
+			cateNBrand = input.nextLine().toUpperCase();
+
+			pdFlag = pdao.adminPdSearcyIs(selectNum, cateNBrand);
+
+			if (pdFlag) {
+				pdao.adminpdSearcy(selectNum, cateNBrand);
+			} else {
+				System.out.println("잘못된 입력 : 찾고 있는 카테고리가 없습니다.");
+			}
+
 		} else {
 			System.out.print("☞ 검색할 브랜드를 입력하세요 : ");
-			cateNBrand = input.nextLine();
-			pdao.adminpdSearcy(selectNum, cateNBrand);
+			cateNBrand = input.nextLine().toUpperCase();
+
+			pdFlag = pdao.adminPdSearcyIs(selectNum, cateNBrand);
+			if (pdFlag) {
+				pdao.adminpdSearcy(selectNum, cateNBrand);
+			} else {
+				System.out.println("잘못된 입력 : 찾고 있는 브랜드가 없습니다.");
+			}
+
+			
 		}
 	}
 
@@ -164,14 +182,14 @@ public class ProductManager {
 				System.out.println();
 				System.out.print("\n정말로 삭제하시겠습니까? (Y/N): ");
 				check = input.nextLine().toUpperCase();
-				if(check.equals("Y")) {
+				if (check.equals("Y")) {
 					pdao.pdDelete(pdCode);
 					System.out.println("\n==| 상품코드 : " + pdCode + " 삭제 완료 |==\n");
-				}else {
+				} else {
 					flagExit = true;
 				}
 			}
-		}//end of while
+		} // end of while
 	}
 
 }

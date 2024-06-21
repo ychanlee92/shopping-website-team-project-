@@ -48,11 +48,16 @@ public class UserManager {
 			String phone = sc.nextLine();
 			if (phone.matches(regExp)) {
 				if (phone.length() == 11) {
-					System.out.print("주소를 입력하세요: ");
-					String address = sc.nextLine();
-					UserVO user = new UserVO(id, pass, name, phone, address, 0);
-					ud.signUp(user);
-					break;
+					boolean flag = ud.phoneCheck(phone);
+					if (!flag) {
+						System.out.println("중복된 전화번호입니다.");
+					} else {
+						System.out.print("주소를 입력하세요: ");
+						String address = sc.nextLine();
+						UserVO user = new UserVO(id, pass, name, phone, address, 0);
+						ud.signUp(user);
+						break;
+					}
 				} else {
 					System.out.println("전화번호 11자리가 입력되지 않았습니다.");
 				}
@@ -69,8 +74,17 @@ public class UserManager {
 	public void updateUser(String id) {
 		System.out.print("변경할 비밀번호를 입력하세요:  ");
 		String pass = sc.nextLine();
-		System.out.print("변경할 전화번호를 입력하세요:  ");
-		String phone = sc.nextLine();
+		String phone = null;
+		for (;;) {
+			System.out.print("변경할 전화번호를 입력하세요:  ");
+			phone = sc.nextLine();
+			boolean flag = ud.phoneCheck(phone);
+			if (!flag) {
+				System.out.println("중복된 전화번호입니다.");
+			} else {
+				break;
+			}
+		}
 		System.out.print("변경할 주소를 입력하세요:  ");
 		String address = sc.nextLine();
 		ud.updateUser(id, pass, phone, address);
@@ -90,13 +104,18 @@ public class UserManager {
 		String id = sc.nextLine();
 		boolean flag = ud.idCheck(id);
 		if (!flag) {
-			System.out.print("변경할 비밀번호를 입력하세요:  ");
+			System.out.print("세로운 비밀번호를 입력하세요:  ");
 			String pass = sc.nextLine();
-			System.out.print("변경할 전화번호를 입력하세요:  ");
+			System.out.print("새로운 전화번호를 입력하세요:  ");
 			String phone = sc.nextLine();
-			System.out.print("변경할 주소를 입력하세요:  ");
-			String address = sc.nextLine();
-			ud.updateUser(id, pass, phone, address);
+			boolean exit = ud.phoneCheck(phone);
+			if (!exit) {
+				System.out.print("새로운 주소를 입력하세요:  ");
+				String address = sc.nextLine();
+				ud.updateUser(id, pass, phone, address);
+			} else {
+				System.out.println("중복된 전화번호입니다.");
+			}
 		} else {
 			System.out.println("ID 정보가 일치하지 않습니다.");
 		}
@@ -104,7 +123,7 @@ public class UserManager {
 
 	public void deleteUserAdmin() {
 		ud.printTotalUser();
-		System.out.print("수정할 사용자의 ID를 입력하세요:  ");
+		System.out.print("삭제할 사용자의 ID를 입력하세요:  ");
 		String id = sc.nextLine();
 		boolean flag = ud.idCheck(id);
 		if (!flag) {

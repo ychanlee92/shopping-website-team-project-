@@ -12,7 +12,6 @@ public class CartVO {
 	private int isPayment;
 	private Timestamp paymentDate;
 
-	
 	public CartVO() {
 		super();
 	}

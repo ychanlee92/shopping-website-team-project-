@@ -3,6 +3,7 @@ package controller;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -17,7 +18,7 @@ public class DBUtil {
 	// 데이터베이스 연결
 	public static Connection makeConnection() throws FileNotFoundException, IOException {
 		// 오라클 데이터베이스 정보(주소, 유저, 패스워드)
-		String filePath = "D:/git/teamProject-ShoppingWepsite/ShoppingWep-teamProject/db.properties";
+		String filePath = "D:/java/java21/fancy/ShoppingWep-teamProject/db.properties";
 		Properties properties = new Properties();
 		properties.load(new FileReader(filePath));
 
@@ -81,13 +82,13 @@ public class DBUtil {
 		return con;
 	}
 
-	public static void closeResource(ResultSet rs, PreparedStatement pstmt, Connection con) {
+	public static void closeResource(ResultSet rs, CallableStatement cstmt, Connection con) {
 		try {
 			if (rs != null) {
 				rs.close();
 			}
-			if (pstmt != null) {
-				pstmt.close();
+			if (cstmt != null) {
+				cstmt.close();
 			}
 			if (con != null) {
 				con.close();
@@ -119,6 +120,22 @@ public class DBUtil {
 			}
 			if (con != null) {
 				con.close();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void closeResource(PreparedStatement pstmt, Connection con, ResultSet rs) {
+		try {
+			if (pstmt != null) {
+				pstmt.close();
+			}
+			if (con != null) {
+				con.close();
+			}
+			if (rs != null) {
+				rs.close();
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
