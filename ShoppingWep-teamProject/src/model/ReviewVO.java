@@ -71,8 +71,8 @@ public class ReviewVO {
 
 	@Override
 	public String toString() {
-		return "[" + reviewNum + "\t|" + userId + "\t|" + pdCode + "\t|"
-				+ reviewCom + "\t|" + rate + "]";
+		return reviewNum + "\t|" + userId + "\t|" + pdCode + "\t|"
+				+ reviewCom + "\t|" + rate;
 	}
 
 	

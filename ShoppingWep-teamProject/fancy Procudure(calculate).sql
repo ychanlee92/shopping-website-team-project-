@@ -5,7 +5,7 @@ CREATE OR REPLACE TRIGGER CAL_ADD_TRG
     for each row
 BEGIN
     insert into calculate 
-    values(calculate_seq.nextval,:old.pdcode,:old.order_num,:old.quantity,:old.salesAmount,:new.paymentDate);
+    values(calculate_seq.nextval,:old.pdcode,:old.quantity,:old.order_num,:old.salesAmount,:new.paymentDate);
 END;
 /
 -------------------------------------------------------------------------------

@@ -20,7 +20,7 @@ public class MenuView {
 		System.out.println("║  ╚═╝        ╚═╝  ╚═╝     ╚═══╝       ╚═════╝       ╚═╝          ║");
 		System.out.println("║                                                                 ║");
 		System.out.println("╠═════════════════════════════════════════════════════════════════╣");
-		
+
 	}
 
 	public static void startMenuViewer() {
@@ -31,16 +31,16 @@ public class MenuView {
 		System.out.println("╚═════════════════════════════════════════════════════════════════╝");
 		System.out.print("**번호 선택: ");
 	}
-	
+
 	public static void adminMenuViewer() {
 		System.out.println("╔═══════════════════════════ADMIN MENU════════════════════════════╗");
 		System.out.println("║                                                                 ║");
-		System.out.println("║        1.회원관리     2.상품관리      3.매출관리       4.로그아웃         ║");
+		System.out.println("║      1.회원관리     2.상품관리     3.매출관리    4.리뷰관리    5.로그아웃    ║");
 		System.out.println("║                                                                 ║");
 		System.out.println("╚═════════════════════════════════════════════════════════════════╝");
 		System.out.print("**번호 선택: ");
 	}
-	
+
 	public static void userManagementViewer() {
 		System.out.println("╔═══════════════════════════ADMIN MENU════════════════════════════╗");
 		System.out.println("║                                                                 ║");
@@ -49,7 +49,7 @@ public class MenuView {
 		System.out.println("╚═════════════════════════════════════════════════════════════════╝");
 		System.out.print("**번호 선택: ");
 	}
-	
+
 	public static void productManagementViewer() {
 		System.out.println("╔═══════════════════════════ADMIN MENU════════════════════════════╗");
 		System.out.println("║                                                                 ║");
@@ -58,7 +58,7 @@ public class MenuView {
 		System.out.println("╚═════════════════════════════════════════════════════════════════╝");
 		System.out.print("**번호 선택: ");
 	}
-	
+
 	public static void calculateManagementViewer() {
 		System.out.println("╔═══════════════════════════ADMIN MENU════════════════════════════╗");
 		System.out.println("║                                                                 ║");
@@ -67,25 +67,25 @@ public class MenuView {
 		System.out.println("╚═════════════════════════════════════════════════════════════════╝");
 		System.out.print("**번호 선택: ");
 	}
-	
+
 	public static void customerMenuViewer() {
 		System.out.println("╔════════════════════════Welcome to KH FANCY══════════════════════╗");
 		System.out.println("║                                                                 ║");
-		System.out.println("║     1.마이페이지    2.상품보기    3.장바구니    4.결제하기     5.로그아웃     ║");
+		System.out.println("║     1.마이페이지    2.상품보기    3.장바구니    4.결제하기     5.뒤로가기     ║");
 		System.out.println("║                                                                 ║");
 		System.out.println("╚═════════════════════════════════════════════════════════════════╝");
 		System.out.print("**번호 선택: ");
 	}
-	
-	public static void customerInfoViewer(){
+
+	public static void customerInfoViewer() {
 		System.out.println("╔════════════════════════Welcome to KH FANCY══════════════════════╗");
 		System.out.println("║                                                                 ║");
-		System.out.println("║     1.내 정보    2.내 정보수정   3.탈퇴하기    4.결제내역     5.뒤로가기         ║");
+		System.out.println("║  1.내 정보    2.내 정보수정   3.탈퇴하기  4.결제내역  5.리뷰메뉴  6.뒤로가기    ║");
 		System.out.println("║                                                                 ║");
 		System.out.println("╚═════════════════════════════════════════════════════════════════╝");
 		System.out.print("**번호 선택: ");
 	}
-	
+
 	public static void customer_ProductMenuViewer() {
 		System.out.println("╔════════════════════════Welcome to KH FANCY══════════════════════╗");
 		System.out.println("║                                                                 ║");
@@ -94,7 +94,16 @@ public class MenuView {
 		System.out.println("╚═════════════════════════════════════════════════════════════════╝");
 		System.out.print("**번호 선택: ");
 	}
-	
+
+	public static void review_ReviewMenuViewer() {
+		System.out.println("╔════════════════════════Welcome to KH FANCY══════════════════════╗");
+		System.out.println("║                                                                 ║");
+		System.out.println("║       1.리뷰조회       2.리뷰작성       3.리뷰삭제       4.뒤로가기        ║");
+		System.out.println("║                                                                 ║");
+		System.out.println("╚═════════════════════════════════════════════════════════════════╝");
+		System.out.print("**번호 선택: ");
+	}
+
 	public static void customer_CartMenuViewer() {
 		System.out.println("╔════════════════════════Welcome to KH FANCY══════════════════════╗");
 		System.out.println("║                                                                 ║");
@@ -103,7 +112,7 @@ public class MenuView {
 		System.out.println("╚═════════════════════════════════════════════════════════════════╝");
 		System.out.print("**번호 선택: ");
 	}
-	
+
 	public static void product_SortMenuViewer() {
 		System.out.println("╔════════════════════════Welcome to KH FANCY══════════════════════╗");
 		System.out.println("║                                                                 ║");
@@ -112,8 +121,7 @@ public class MenuView {
 		System.out.println("╚═════════════════════════════════════════════════════════════════╝");
 		System.out.print("**번호 선택: ");
 	}
-	
-	
+
 	public static void admin_Product_MenuViewer() {
 		System.out.println("╔═══════════════════════════ADMIN MENU════════════════════════════╗");
 		System.out.println("║                                                                 ║");
@@ -122,7 +130,7 @@ public class MenuView {
 		System.out.println("╚═════════════════════════════════════════════════════════════════╝");
 		System.out.print("**번호 선택: ");
 	}
-	
+
 	public static void product_SearchMenuViewer() {
 		System.out.println("╔════════════════════════Welcome to KH FANCY══════════════════════╗");
 		System.out.println("║                                                                 ║");
@@ -131,7 +139,7 @@ public class MenuView {
 		System.out.println("╚═════════════════════════════════════════════════════════════════╝");
 		System.out.print("**키워드 입력: ");
 	}
-	
+
 	public static void product_Choice() {
 		System.out.println("╔════════════════════════Welcome to KH FANCY══════════════════════╗");
 		System.out.println("║                                                                 ║");
@@ -140,7 +148,7 @@ public class MenuView {
 		System.out.println("╚═════════════════════════════════════════════════════════════════╝");
 		System.out.print("**상품코드 입력: ");
 	}
-	
+
 	public static void product_Registration() {
 		System.out.println("╔═══════════════════════════ADMIN MENU════════════════════════════╗");
 		System.out.println("║                                                                 ║");
@@ -148,6 +156,7 @@ public class MenuView {
 		System.out.println("║                                                                 ║");
 		System.out.println("╚═════════════════════════════════════════════════════════════════╝");
 	}
+
 	public static void product_Update() {
 		System.out.println("╔═══════════════════════════ADMIN MENU════════════════════════════╗");
 		System.out.println("║                                                                 ║");
@@ -155,6 +164,7 @@ public class MenuView {
 		System.out.println("║                                                                 ║");
 		System.out.println("╚═════════════════════════════════════════════════════════════════╝");
 	}
+
 	public static void product_Delete() {
 		System.out.println("╔═══════════════════════════ADMIN MENU════════════════════════════╗");
 		System.out.println("║                                                                 ║");
@@ -162,6 +172,7 @@ public class MenuView {
 		System.out.println("║                                                                 ║");
 		System.out.println("╚═════════════════════════════════════════════════════════════════╝");
 	}
+
 	public static void calculate_detailMenuViewer() {
 		System.out.println("╔═══════════════════════════ADMIN MENU════════════════════════════╗");
 		System.out.println("║                                                                 ║");
@@ -170,11 +181,20 @@ public class MenuView {
 		System.out.println("╚═════════════════════════════════════════════════════════════════╝");
 		System.out.print("**번호 선택: ");
 	}
-	
+
 	public static void enterAdminMenu() {
 		System.out.println("╔═════════════════════════════════════════════════════════════════╗");
 		System.out.println("║                                                                 ║");
 		System.out.println("║        1.관리자 메뉴          2.고객 메뉴            3.로그아웃         ║");
+		System.out.println("║                                                                 ║");
+		System.out.println("╚═════════════════════════════════════════════════════════════════╝");
+		System.out.print("**번호 선택: ");
+	}
+
+	public static void review_ReviewMenuViewerAdmin() {
+		System.out.println("╔═══════════════════════════ADMIN MENU════════════════════════════╗");
+		System.out.println("║                                                                 ║");
+		System.out.println("║      1.리뷰 조회          2.리뷰 삭제             3.로그아웃            ║");
 		System.out.println("║                                                                 ║");
 		System.out.println("╚═════════════════════════════════════════════════════════════════╝");
 		System.out.print("**번호 선택: ");

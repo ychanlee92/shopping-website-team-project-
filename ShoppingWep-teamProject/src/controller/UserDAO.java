@@ -37,7 +37,7 @@ public class UserDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			DBUtil.closeResource(rs, pstmt, con);
+			DBUtil.closeResource(pstmt, con, rs);
 		}
 		return flag;
 	}
@@ -45,7 +45,6 @@ public class UserDAO {
 	// 회원가입 함수
 	public void signUp(UserVO user) {
 		Connection con = null;
-		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		CallableStatement cstmt = null;
 		try {
@@ -63,7 +62,7 @@ public class UserDAO {
 			String message = cstmt.getString(7);
 			System.out.println(message);
 			// 회원가입과 동시에 회원가입 축하 쿠폰 입력
-			System.out.println("신규회원 이벤트 웰컴 쿠폰이 발급되었습니다.\n쿠폰함에서 확인해보세요! ");
+			System.out.println("신규회원 이벤트 웰컴 쿠폰이 발급되었습니다.");
 			cstmt = con.prepareCall("{CALL insertcoupon_w(?)}");
 			cstmt.setString(1, user.getUserId());
 			cstmt.executeUpdate();
@@ -72,7 +71,7 @@ public class UserDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			DBUtil.closeResource(rs, pstmt, con);
+			DBUtil.closeResource(rs, cstmt, con);
 		}
 	}
 
@@ -97,7 +96,33 @@ public class UserDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			DBUtil.closeResource(rs, pstmt, con);
+			DBUtil.closeResource(pstmt, con, rs);
+		}
+		return flag;
+	}
+
+	// 전화번호 중복 확인
+	public boolean phoneCheck(String phone) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		boolean flag = false;
+		try {
+			con = DBUtil.makeConnection();
+			// flag로 결과값이 있는지 확인
+			String sql = "select * from fancy_user where phone = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, phone);
+			rs = pstmt.executeQuery();
+			if (!rs.next()) {
+				flag = true;
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.closeResource(pstmt, con, rs);
 		}
 		return flag;
 	}
@@ -138,30 +163,42 @@ public class UserDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			DBUtil.closeResource(rs, pstmt, con);
+			DBUtil.closeResource(pstmt, con, rs);
 		}
 	}
 
+	// 유저 정보 출력 함수
 	public void toStringUser(ArrayList<UserVO> userList, ArrayList<CouponVO> couponList) {
+		System.out.println("아이디 \t|성함 \t|전화번호 \t\t|주소 \t|웰컴쿠폰 \t|누적 10만 쿠폰 \t|20만 누적 쿠폰");
 		for (int i = 0; i < userList.size(); i++) {
 			UserVO user = userList.get(i);
 			CouponVO coupon = couponList.get(i);
-			System.out.printf("%-10s %1s", user.getUserId(), "|");
-			System.out.printf("%-10s %1s", user.getUserPass(), "|");
-			System.out.printf("%-5s %1s", user.getUserName(), "|");
-			System.out.printf("%-11s %1s", user.getPhone(), "|");
-			System.out.printf("%-20s %1s", user.getAddress(), "|");
-			System.out.printf("%-10d %1s", user.getAccAmount(), "|");
-			System.out.print(coupon.getCoupon_w());
-			System.out.print(coupon.getCoupon_m());
-			System.out.print(coupon.getCoupon_d());
+			System.out.print(user.getUserId() + "\t|");
+			System.out.print(user.getUserName() + "\t|");
+			System.out.print(user.getPhone() + "\t|");
+			System.out.print(user.getAddress() + "\t|");
+			if (coupon.getCoupon_w() == 1) {
+				System.out.print("보유" + "\t|");
+			} else {
+				System.out.print("미보유" + "\t|");
+			}
+			if (coupon.getCoupon_m() == 1) {
+				System.out.print("보유" + "\t\t|");
+			} else {
+				System.out.print("미보유" + "\t\t|");
+			}
+			if (coupon.getCoupon_d() == 1) {
+				System.out.print("보유");
+			} else {
+				System.out.print("미보유");
+			}
 			System.out.println("");
 		}
 	}
 
+	// 유저 정보 수정 함수
 	public void updateUser(String id, String pass, String phone, String address) {
 		Connection con = null;
-		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		CallableStatement cstmt = null;
 		try {
@@ -180,13 +217,13 @@ public class UserDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			DBUtil.closeResource(rs, pstmt, con);
+			DBUtil.closeResource(rs, cstmt, con);
 		}
 	}
 
+	// 유저 삭제 함수
 	public void deleteUser(String id) {
 		Connection con = null;
-		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		CallableStatement cstmt = null;
 		try {
@@ -202,10 +239,11 @@ public class UserDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			DBUtil.closeResource(rs, pstmt, con);
+			DBUtil.closeResource(rs, cstmt, con);
 		}
 	}
 
+	// 관리자 유저 조회 함수
 	public void printTotalUser() {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -216,7 +254,7 @@ public class UserDAO {
 			String sql = "select * from fancy_user";
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
-			while (rs.next()) {
+			while (!rs.next()) {
 				String userId = rs.getString("userId");
 				String pass = rs.getString("userPass");
 				String name = rs.getString("userName");
@@ -224,14 +262,14 @@ public class UserDAO {
 				String address = rs.getString("address");
 				int accAmount = rs.getInt("accAmount");
 				user = new UserVO(userId, pass, name, phone, address, accAmount);
-				System.out.println(user.toString());
 			}
+			System.out.println(user.toString());
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			DBUtil.closeResource(rs, pstmt, con);
+			DBUtil.closeResource(pstmt, con, rs);
 		}
 	}
 
